@@ -40,6 +40,32 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _submitExpenseData() {
+    final enteredAmount = double.tryParse(_amountController.text);
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Invalid Input'),
+          content: const Text(
+              'One or more value of the title, amount or categories is incorrect'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Okay'),
+            )
+          ],
+        ),
+      );
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -97,9 +123,7 @@ class _NewExpenseState extends State<NewExpense> {
                     .map(
                       (category) => DropdownMenuItem(
                         value: category,
-                        child: Text(
-                          category.name.toUpperCase(),
-                        ),
+                        child: Text(category.name.toUpperCase()),
                       ),
                     )
                     .toList(),
@@ -112,12 +136,16 @@ class _NewExpenseState extends State<NewExpense> {
                   });
                 },
               ),
-              TextButton(onPressed: () {}, child: const Text('Cancel')),
-              ElevatedButton(
+              const Spacer(),
+              TextButton(
                   onPressed: () {
-                    // print(_enteredTitle);
+                    Navigator.pop(context);
                   },
-                  child: const Text('Save Expense')),
+                  child: const Text('Cancel')),
+              ElevatedButton(
+                onPressed: _submitExpenseData,
+                child: const Text('Save Expense'),
+              ),
             ],
           ),
         ],
