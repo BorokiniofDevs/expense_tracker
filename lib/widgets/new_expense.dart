@@ -53,9 +53,14 @@ class _NewExpenseState extends State<NewExpense> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text('Invalid Input'),
-          content: const Text(
-              'One or more value of the title, amount or categories is incorrect'),
+          title: Text(
+            'Invalid Input',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
+          content: Text(
+            'One or more value of the title, amount or categories is incorrect',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -92,12 +97,15 @@ class _NewExpenseState extends State<NewExpense> {
             // onChanged: _saveTitleInput,
             controller: _titleController,
             maxLength: 50,
+            style: TextStyle(color: Theme.of(context).colorScheme.secondary),
             decoration: const InputDecoration(label: Text('Title')),
           ),
           Row(
             children: [
               Expanded(
                 child: TextField(
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.secondary),
                   controller: _amountController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
