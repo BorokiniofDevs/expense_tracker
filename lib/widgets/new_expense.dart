@@ -1,5 +1,6 @@
 import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 // import 'package:flutter/widgets.dart';
 
 class NewExpense extends StatefulWidget {
@@ -113,14 +114,19 @@ class _NewExpenseState extends State<NewExpense> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(_selectedDate == null
-                        ? 'No Date Selected'
-                        : formatter.format(_selectedDate!)),
+                    Text(
+                      _selectedDate == null
+                          ? 'No Date Selected'
+                          : formatter.format(_selectedDate!),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary),
+                    ),
                     IconButton(
                       onPressed: _presentDatePicker,
                       icon: const Icon(
                         Icons.calendar_month,
                       ),
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ],
                 ),
@@ -133,6 +139,8 @@ class _NewExpenseState extends State<NewExpense> {
           Row(
             children: [
               DropdownButton(
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.secondary),
                 value: _selectedCategory,
                 items: Category.values
                     .map(
